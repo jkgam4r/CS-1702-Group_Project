@@ -17,7 +17,11 @@ def write_data(path, key, data): #write data to dict func, takes key and data - 
     except:
         return "failed to load data" #error message if data fails to laod
     
+    print (loaded_data)
+    
     loaded_data[key] = data
+    
+    print (loaded_data)
     
     try:
         with open (path, 'w') as file: #open file in write mode
