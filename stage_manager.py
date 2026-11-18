@@ -23,12 +23,12 @@ def write_data(path, key, data): #write data to dict func, takes key and data - 
     
     print (loaded_data)
     
-    try:
-        with open (path, 'w') as file: #open file in write mode
-            json.dump(loaded_data) #write over existing data with new data
-        return 'data written'
-    except:
-        return 'data could not be written' #error message if data could be loaded but new data not written
+    # try:
+    with open (path, 'a') as file: #open file in write mode
+        json.dump(path, loaded_data) #write over existing data with new data
+    return 'data written'
+    # except:
+    #     return 'data could not be written' #error message if data could be loaded but new data not written
         
 
 print (write_data('stage_data.json', 'Stage 3', ['Stage 3', 10, "Shaun's Garden"] ))
