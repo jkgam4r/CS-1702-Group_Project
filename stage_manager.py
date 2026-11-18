@@ -25,7 +25,7 @@ def write_data(path, key, data): #write data to dict func, takes key and data - 
     
     # try:
     with open (path, 'w') as file: #open file in write mode
-        json.dump(loaded_data, path) #write over existing data with new data
+        json.dump(loaded_data, file) #write over existing data with new data
     return 'data written'
     # except:
     #     return 'data could not be written' #error message if data could be loaded but new data not written
