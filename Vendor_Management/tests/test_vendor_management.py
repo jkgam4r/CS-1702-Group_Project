@@ -19,7 +19,7 @@ from app.main import add_vendor, view_vendor, update_vendor, delete_vendor
 # ADD VENDOR
 def test_valid_add_vendor():
     try:
-        result = add_vendor("Burger Bros", "Burgers", "Stage1") # expected values
+        result = add_vendor("Burger Bros", "Burgers", "Stage_1") # expected values
         assert result == True # vendor was added successfully
     finally:
         delete_vendor("Burger Bros", True) # test should pass, deleting vendor so the test can be run again
@@ -36,7 +36,7 @@ def test_erroneous_add_vendor():
 # VIEW VENDOR
 def test_valid_view_vendor():
     result = view_vendor("Hot Dog Men") # default testing vendor, add this to dict and json when creating them
-    assert result == [True, ["Hot Dog Men", "Hot Dogs", "Stage1"]] # vendor was found successfully, and information shown
+    assert result == [True, ["Hot Dog Men", "Hot Dogs", "Stage_1"]] # vendor was found successfully, and information shown
 
 def test_boundary_view_vendor():
     result = view_vendor(" ") # no vendor is allowed to have this name but it is a valid string
@@ -50,13 +50,13 @@ def test_erroneous_view_vendor():
 # UPDATE VENDOR
 def test_valid_update_vendor():
     try:
-        result = update_vendor("Hot Dog Men", ["Vegan Hot Dog Men", " Vegan Hot Dogs", "Stage2"]) # expected and valid values
+        result = update_vendor("Hot Dog Men", ["Vegan Hot Dog Men", " Vegan Hot Dogs", "Stage_2"]) # expected and valid values
         assert result == True # values updated successfully
     finally:
-        update_vendor("Vegan Hot Dog Men", ["Hot Dog Men", "Hot Dogs", "Stage1"]) # test should pass, changing the data back
+        update_vendor("Vegan Hot Dog Men", ["Hot Dog Men", "Hot Dogs", "Stage_1"]) # test should pass, changing the data back
 
 def test_boundary_update_vendor():
-    result = update_vendor(" ", ["Spud Sisters", "Jacket Potatoes", "Stage3"]) # vendors cannot be called this, therefore shouldnt exist, therefore shouldnt be found
+    result = update_vendor(" ", ["Spud Sisters", "Jacket Potatoes", "Stage_3"]) # vendors cannot be called this, therefore shouldnt exist, therefore shouldnt be found
     assert result == False # no vendor found to update values for
 
 def test_erroneous_update_vendor():
@@ -70,7 +70,7 @@ def test_valid_delete_vendor():
         result = delete_vendor("Hot Dog Men", True) # valid vendor with confirmation
         assert result == True # vendor deleted successfully
     finally:
-        add_vendor("Hot Dog Men", "Hot Dogs", "Stage1") # the test should pass, so need to put the vendor back
+        add_vendor("Hot Dog Men", "Hot Dogs", "Stage_1") # the test should pass, so need to put the vendor back
 
 def test_boundary_delete_vendor():
     result = delete_vendor("Hot Dog Men", "No") # valid vendor name, invalid confirmation tho
