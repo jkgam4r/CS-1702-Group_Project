@@ -1,0 +1,14 @@
+{
+    {
+        "Ticket_Type": "Basic",
+        "Price": 50,
+        "Ticket_Sold": 0,
+        "Quantity": 100
+    },
+    {
+        "Ticket_Type": "Vip",
+        "Price": 100,
+        "Ticket_Sold": 0,
+        "Quantity": 50
+    }
+}
