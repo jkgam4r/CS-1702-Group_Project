@@ -51,7 +51,7 @@ def test_erroneous_view_vendor():
 # UPDATE VENDOR
 def test_valid_update_vendor():
     try:
-        result = update_vendor("Hot Dog Men", ["Vegan Hot Dog Men", " Vegan Hot Dogs", "Stage_2"]) # expected and valid values
+        result = update_vendor("Hot Dog Men", ["Vegan Hot Dog Men", "Vegan Hot Dogs", "Stage_2"]) # expected and valid values
         assert result == True # values updated successfully
     finally:
         update_vendor("Vegan Hot Dog Men", ["Hot Dog Men", "Hot Dogs", "Stage_1"]) # test should pass, changing the data back
@@ -74,7 +74,7 @@ def test_valid_delete_vendor():
         add_vendor("Hot Dog Men", "Hot Dogs", "Stage_1") # the test should pass, so need to put the vendor back
 
 def test_boundary_delete_vendor():
-    result = delete_vendor("Hot Dog Men", "No") # valid vendor name, invalid confirmation tho
+    result = delete_vendor("Hot Dog Men", False) # valid vendor name, invalid confirmation tho
     assert result == False # vendor not deleted
 
 def test_erroneous_delete_vendor():
