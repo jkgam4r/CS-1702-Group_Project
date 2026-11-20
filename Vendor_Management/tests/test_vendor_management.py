@@ -14,6 +14,7 @@ def test_get_animal_noise():
 
 import pytest
 from app.main import add_vendor, view_vendor, update_vendor, delete_vendor
+from app.json_handling import json_to_dict, dict_to_json
 
 
 # ADD VENDOR
@@ -77,5 +78,42 @@ def test_boundary_delete_vendor():
     assert result == False # vendor not deleted
 
 def test_erroneous_delete_vendor():
-    result = delete_vendor([1,2,3,4], [1,2,3,4]) #completely invalid arguments
+    result = delete_vendor([1,2,3,4], [1,2,3,4]) # completely invalid arguments
     assert result == False # vendor not deleted
+
+
+# JSON TO DICT
+def test_valid_json_to_dict():
+    result = json_to_dict("Vendor_Management/tests/json_test_data.json") # real file path, expected
+    assert result == {"Will": ["This", "Work", "?"]} # the actual data from the file
+
+def test_boundary_json_to_dict():
+    result = json_to_dict("Vendor_Management/tests/fake_json_file.json") # not a real file, shouldnt work
+    assert result == "failed to read data" # error message
+
+def test_erroneous_json_to_dict():
+    result = json_to_dict([1,2,3,4]) # completely invalid argument type
+    assert result == "failed to read data" # error message
+
+
+# DICT TO JSON
+def test_valid_dict_to_json():
+    try:
+        result = dict_to_json("Vendor_Management/tests/json_test_data.json", {"This": ["Should", "Work", "!"]}) # expected values
+        assert result == "data written" # successfully done
+    except:
+        dict_to_json("Vendor_Management/tests/json_test_data.json", {"Will": ["This", "Work", "?"]}) # resetting the data for next test
+
+def test_boundary_dict_to_json():
+    try:
+        result = dict_to_json("Vendor_Management/tests/fake_json_file.json", {"This": ["Should", "Work", "!"]}) # not a real file, shouldnt work
+        assert result == "failed to write data" # error message
+    except:
+        dict_to_json("Vendor_Management/tests/json_test_data.json", {"Will": ["This", "Work", "?"]}) # resetting the data for next test
+
+def test_erroneous_dict_to_json():
+    try:
+        result = dict_to_json([1,2,3,4], "a") # completely invalid arguments, shouldnt work
+        assert result == "failed to write data" # error message
+    except:
+        dict_to_json("Vendor_Management/tests/json_test_data.json", {"Will": ["This", "Work", "?"]}) # resetting the data for next test
