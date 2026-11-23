@@ -77,15 +77,101 @@ def add_vendor(name, food_type, location):
 
 
 
-def view_vendor():
-    print()
+def view_vendor(name):
+    try:
+        viewing_vendor = []
+        viewing_vendor = vendor_data[name]
+    except KeyError: # name not found in dictionary
+        print("vendor not found in dictionary")
+        return_list = [False, ""]
+        return return_list # return false and blank
+    else: # name was found in dictionary
+        return_list = [True, viewing_vendor]
+        return return_list # return true and associated data
 
 
 
-def update_vendor():
-    print()
+def update_vendor(name, new_data: list):
+    # if vendor exists
+    vendor_exists = view_vendor(name) # use index 0 to access the true or false part
+    if vendor_exists[0] == False: # vendor not found
+        print("vendor cannot be updated as it doesnt exist")
+        return False
+
+    # vendor does exist
+    vendor_data = json_to_dict(json_path) # import all vendors from file
+    try:
+        vendor_data = dict(vendor_data)
+    except TypeError: # failed to read data error
+        print("error in loading vendor data from file")
+        return False
+
+    # data loaded correctly
+    vendor_data.update({name: [new_data]}) # update vendor
+    write_result = dict_to_json(json_path, vendor_data) # write data back to file
+
+    if write_result == "data written": # written successfully
+        return True
+    elif write_result == "failed to write data": # failed to write error
+        print("error in writing vendor data to file")
+        return False
+    else: # completely unknown error
+        print("unknown error in writing data to file")
+        return False
 
 
 
-def delete_vendor():
-    print()
+def delete_vendor(name, confirmation):
+    # if vendor exists
+    vendor_exists = view_vendor(name) # use index 0 to access the true or false part
+    if vendor_exists[0] == False: # vendor not found
+        print("vendor cannot be deleted as it doesnt exist")
+        return False
+
+    # vendor does exist
+    # is confirmation valid
+    if confirmation == True:
+        #delete vendor in sub func
+        vendor_deleted = delete_vendor_confirmed(name) # returns bool if actually did it
+        if vendor_deleted == True:
+            return True
+        elif vendor_deleted == False:
+            print("vendor not deleted, error")
+            return False
+        else:
+            print("error not deleted, error")
+            return False
+
+    #dont delete vendor
+    elif confirmation == False:
+        print("give valid confirmation to delete vendor")
+        return False
+    else: 
+        print("null value error")
+        return False
+
+
+
+def delete_vendor_confirmed(name):
+    # load data from file
+    vendor_data = json_to_dict(json_path) # import all vendors from file
+    try:
+        vendor_data = dict(vendor_data)
+    except TypeError: # failed to read data error
+        print("error in loading vendor data from file")
+        return False
+
+    # remove vendor from dict
+    vendor_data.pop(name)
+
+    # store data back in file
+    write_result = dict_to_json(json_path, vendor_data) # write data back to file
+
+    if write_result == "data written": # written successfully
+        return True
+    elif write_result == "failed to write data": # failed to write error
+        print("error in writing vendor data to file")
+        return False
+    else: # completely unknown error
+        print("unknown error in writing data to file")
+        return False
