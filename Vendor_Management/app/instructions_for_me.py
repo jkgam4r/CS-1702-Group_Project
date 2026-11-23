@@ -13,11 +13,11 @@ vendors json
 
 
 whats in the list of data?
-- vendor name (yes its a duplicate but who its okay)
+- vendor name (yes its a duplicate but its okay)
 - food type (hot dogs, burgers, etc)
 - location (stage area, same as the ID for a stage like stage_1 or however jamie is going to do it)
 
-vendor data = [vendor name x, food type, location]
+vendor data = [vendor name, food type, location]
 
 
 
@@ -25,6 +25,7 @@ functions:
 
 add vendor (name, food type, location)
 - if name already exists, return false
+- if name is invalid type or " ", return false
 - else, create a new vendor
 - add to main dictionary and json
 - return true if done successfully
