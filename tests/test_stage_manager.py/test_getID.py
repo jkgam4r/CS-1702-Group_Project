@@ -11,3 +11,6 @@ def test_T03():
 
 def test_T04():
     assert getID(5) == None
+    
+def test_T05():
+    assert getID('') == None
